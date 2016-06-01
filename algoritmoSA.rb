@@ -53,3 +53,8 @@ deposito = {
   :longitud =>  -101.0166124,
   :cantidad => 0
 }
+
+capacidad_camion = 1000
+#Solución inicial
+s = [[deposito, tienda3, tienda1, tienda2, tienda5, deposito], [deposito, tienda6, tienda7,tienda4, deposito]]
+s_s = [[deposito, tienda3, tienda1, tienda2, tienda5, deposito], [deposito, tienda6, tienda7,tienda4, deposito]]

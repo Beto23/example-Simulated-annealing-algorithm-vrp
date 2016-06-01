@@ -89,19 +89,31 @@ x = 0.85
 #temperatura final
 tf = 0.001
 
-  n = 199
+  n = 0
   while n < 200
     numero_azar = Random.new
     ruta = s[numero_azar.rand(0..1)]
-    s_new = s_s
+    while ruta.size <= 2
+      ruta = s[numero_azar.rand(0..1)]
+    end
+    puts ruta.size
+    s_new = s
     #Perturbar S
     if ruta == s[0]
       numero_azar_ruta1 = numero_azar.rand(1..ruta.size-2)
-      s_new[1].insert(numero_azar.rand(1..s_new[1].size-2), ruta[numero_azar_ruta1])
+      if s_new[1].size == 2
+        s_new[1].insert(1, ruta[numero_azar_ruta1])
+      else
+        s_new[1].insert(numero_azar.rand(1..s_new[1].size-2), ruta[numero_azar_ruta1])
+      end
       s_new[0].delete_at(numero_azar_ruta1)
     else
       numero_azar_ruta2 = numero_azar.rand(1..ruta.size-2)
-      s_new[0].insert(numero_azar.rand(1..s_new[0].size-2),ruta[numero_azar_ruta2])
+      if s_new[0].size == 2
+        s_new[0].insert(1,ruta[numero_azar_ruta2])
+      else
+        s_new[0].insert(numero_azar.rand(1..s_new[0].size-2),ruta[numero_azar_ruta2])
+      end
       s_new[1].delete_at(numero_azar_ruta2)
     end
     #Costo de s_new

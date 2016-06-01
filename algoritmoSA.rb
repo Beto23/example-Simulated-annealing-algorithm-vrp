@@ -58,3 +58,23 @@ capacidad_camion = 1000
 #Solución inicial
 s = [[deposito, tienda3, tienda1, tienda2, tienda5, deposito], [deposito, tienda6, tienda7,tienda4, deposito]]
 s_s = [[deposito, tienda3, tienda1, tienda2, tienda5, deposito], [deposito, tienda6, tienda7,tienda4, deposito]]
+
+#calucular costo de solución#
+cs = 0
+max_cantidad = 0
+s.each_index do |x|
+  s[x].each_index do |y|
+    if s[x][y+1] != nil
+      distance = 0
+      distance = Haversine.distance(s[x][y][:latitud], s[x][y][:longitud], s[x][y+1][:latitud], s[x][y+1][:longitud])
+      cs = cs + distance.to_kilometers
+      peso = 0
+      peso = s[x][y][:cantidad]
+      max_cantidad = max_cantidad + peso
+    end
+    #puts [:latitud]
+  end
+end
+puts s
+puts "#{cs}km"
+puts "#{max_cantidad} bolsas"

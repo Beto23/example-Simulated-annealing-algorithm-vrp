@@ -88,3 +88,39 @@ t = 1000
 x = 0.85
 #temperatura final
 tf = 0.001
+
+  n = 199
+  while n < 200
+    numero_azar = Random.new
+    ruta = s[numero_azar.rand(0..1)]
+    s_new = s_s
+    #Perturbar S
+    if ruta == s[0]
+      numero_azar_ruta1 = numero_azar.rand(1..ruta.size-2)
+      s_new[1].insert(numero_azar.rand(1..s_new[1].size-2), ruta[numero_azar_ruta1])
+      s_new[0].delete_at(numero_azar_ruta1)
+    else
+      numero_azar_ruta2 = numero_azar.rand(1..ruta.size-2)
+      s_new[0].insert(numero_azar.rand(1..s_new[0].size-2),ruta[numero_azar_ruta2])
+      s_new[1].delete_at(numero_azar_ruta2)
+    end
+    #Costo de s_new
+    cs_new = 0
+    s_new.each_index do |x|
+      s_new[x].each_index do |y|
+        if s_new[x][y+1] != nil
+          distance = 0
+          distance = Haversine.distance(s_new[x][y][:latitud], s_new[x][y][:longitud], s_new[x][y+1][:latitud], s_new[x][y+1][:longitud])
+          cs_new = cs_new + distance.to_kilometers
+        end
+      end
+    end
+    if cs_new < cs
+      s = s_new
+      cs = cs_new
+    end
+    puts s_new
+    puts cs_new
+    puts cs
+    n= n+1
+  end

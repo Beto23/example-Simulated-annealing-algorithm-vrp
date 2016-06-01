@@ -78,3 +78,13 @@ end
 puts s
 puts "#{cs}km"
 puts "#{max_cantidad} bolsas"
+
+#Mejor Solucion y mejor Costo
+s_mejor = s
+cs_mejor = cs
+#valor inicial de temperatura
+t = 1000
+#factor de enfriamiento
+x = 0.85
+#temperatura final
+tf = 0.001

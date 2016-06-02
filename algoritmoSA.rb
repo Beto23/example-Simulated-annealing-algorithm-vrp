@@ -57,7 +57,7 @@ deposito = {
 capacidad_camion = 1000
 #Solución inicial
 s = [[deposito, tienda3, tienda1, tienda2, tienda5, deposito], [deposito, tienda6, tienda7,tienda4, deposito]]
-s_s = [[deposito, tienda3, tienda1, tienda2, tienda5, deposito], [deposito, tienda6, tienda7,tienda4, deposito]]
+#s_s = [[deposito, tienda3, tienda1, tienda2, tienda5, deposito], [deposito, tienda6, tienda7,tienda4, deposito]]
 
 #calucular costo de solución#
 cs = 0
@@ -75,6 +75,7 @@ s.each_index do |x|
     #puts [:latitud]
   end
 end
+puts "****solución inicial******"
 puts s
 puts "#{cs}km"
 puts "#{max_cantidad} bolsas"
@@ -89,6 +90,7 @@ x = 0.85
 #temperatura final
 tf = 0.001
 
+while t >= tf
   n = 0
   while n < 200
     numero_azar = Random.new
@@ -96,7 +98,6 @@ tf = 0.001
     while ruta.size <= 2
       ruta = s[numero_azar.rand(0..1)]
     end
-    puts ruta.size
     s_new = s
     #Perturbar S
     if ruta == s[0]
@@ -130,9 +131,22 @@ tf = 0.001
     if cs_new < cs
       s = s_new
       cs = cs_new
+      if cs < cs_mejor
+        s_mejor = s
+        cs_mejor = cs
+      end
+    else
+      p = Math.exp(-(cs_new - cs)/ t)
+      num_rand = Random.new
+      if p > num_rand.rand(0.0..1)
+        s = s_new
+        cs = cs_new
+      end
     end
-    puts s_new
-    puts cs_new
-    puts cs
     n= n+1
   end
+  t = x*t
+end
+puts "****solución más optima******"
+puts "#{cs_mejor}km"
+puts s_mejor
